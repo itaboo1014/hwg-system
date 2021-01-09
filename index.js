@@ -251,6 +251,13 @@ $(function() {
     });
     //レコーディングについての詳細、機材名・レンタル楽器及び機材の詳細をクリックした時に、背景スクロールができないように固定する処理。
 
+    //レコーディングについての詳細、機材名・レンタル楽器及び機材の詳細をクリックした時に、背景スクロールができないように固定する処理。
+    var scrollPosition;
+    $(".rec-detail-link-open, .system-link-open, .rental-link-open, .link-open").on("click", function() {
+        scrollPosition = $(window).scrollTop();
+        $('body').addClass('fixed').css({ 'top': -scrollPosition });
+    });
+    //レコーディングについての詳細、機材名・レンタル楽器及び機材の詳細をクリックした時に、背景スクロールができないように固定する処理。
 
     //モーダルコンテンツの閉じるボタンを押した時にimgとtextを初期位置に戻し、モーダルを閉じる処理。
     $('.popup-content-close-btn').on('click', function() {
@@ -264,13 +271,23 @@ $(function() {
     });
     //モーダルコンテンツの閉じるボタンを押した時にimgとtextを初期位置に戻し、モーダルを閉じる処理。
 
-    //レコーディングについての詳細、機材名・レンタル楽器及び機材の詳細をクリックした時に、背景スクロールができないように固定する処理。
-    var scrollPosition;
-    $(".rec-detail-link-open, .system-link-open, .rental-link-open, .link-open").on("click", function() {
-        scrollPosition = $(window).scrollTop();
-        $('body').addClass('fixed').css({ 'top': -scrollPosition });
+    //ヘッダーメニューボタンを押した時にボタンが変化しリンクメニューが表示/非表示され、背景の固定が、有効/無効になる処理。
+    $("#header-menu-btn").on("click", function() {
+        if ($(this).hasClass('header-menu-btn-active')) {
+            $(this).html('<span class="fa fa-bars"></span>');
+            $(this).removeClass('header-menu-btn-active');
+            $("#main-menu").addClass("main-menu-close");
+            $('body').removeClass('fixed').css({ 'top': 0 });
+            window.scrollTo(0, scrollPosition);
+        } else {
+            $(this).html('<span class="fa fa-times"></span>');
+            $(this).addClass('header-menu-btn-active');
+            $("#main-menu").removeClass("main-menu-close");
+            scrollPosition = $(window).scrollTop();
+            $('body').addClass('fixed').css({ 'top': -scrollPosition });
+        }
     });
-    //レコーディングについての詳細、機材名・レンタル楽器及び機材の詳細をクリックした時に、背景スクロールができないように固定する処理。
+    //ヘッダーメニューボタンを押した時にボタンが変化しリンクメニューが表示/非表示され、背景の固定が、有効/無効になる処理。
 
     //モーダルのimgをクリックした時にimg、textの拡大/縮小を行う処理。
     $('.popup-content-img').on('click', function() {
